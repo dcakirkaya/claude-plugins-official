@@ -1,0 +1,8 @@
+[project]
+name = "claude-plugins-copilot-bridge"
+version = "0.1.0"
+description = "Generate a GitHub Copilot-compatible view of Anthropic's plugin marketplace"
+requires-python = ">=3.10"
+
+[tool.pyright]
+pythonVersion = "3.10"

@@ -1,0 +1,69 @@
+name: Sync marketplace
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 9 * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Generate marketplace
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/sync_marketplace.py --fail-on-skip
+
+      - name: Test and validate
+        run: |
+          python -m unittest discover -s tests -v
+          python scripts/validate_marketplace.py --copilot-if-available
+
+      - name: Open update pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- .github/plugin/marketplace.json .github/plugin/upstream.json; then
+            echo "Marketplace is already current."
+            exit 0
+          fi
+
+          revision="$(python -c 'import json; print(json.load(open(".github/plugin/upstream.json"))["upstream_revision"])')"
+          short_revision="${revision:0:12}"
+          branch="automation/sync-marketplace"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin "$branch:refs/remotes/origin/$branch" || true
+          git switch -C "$branch"
+          git add .github/plugin/marketplace.json .github/plugin/upstream.json
+          git commit -m "Sync Anthropic marketplace at ${short_revision}"
+          git push --force-with-lease origin "$branch"
+
+          body="Updates the generated Copilot marketplace from \`anthropics/claude-plugins-official@${revision}\`.
+
+          Generated and validated by \`.github/workflows/sync-marketplace.yml\`."
+          existing="$(gh pr list --head "$branch" --state open --json number --jq '.[0].number // empty')"
+          if [ -n "$existing" ]; then
+            gh pr edit "$existing" \
+              --title "Sync Anthropic marketplace at ${short_revision}" \
+              --body "$body"
+          else
+            gh pr create \
+              --base "${{ github.event.repository.default_branch }}" \
+              --head "$branch" \
+              --title "Sync Anthropic marketplace at ${short_revision}" \
+              --body "$body"
+          fi

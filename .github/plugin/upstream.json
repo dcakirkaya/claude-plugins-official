@@ -1,0 +1,23 @@
+{
+  "converted": 147,
+  "errors": 0,
+  "output_plugin_count": 302,
+  "skipped": 0,
+  "source_plugin_count": 302,
+  "unchanged": 155,
+  "upstream_manifest": ".claude-plugin/marketplace.json",
+  "upstream_marketplace_name": "claude-plugins-official",
+  "upstream_renames": {
+    "adlc": "agentforce-adlc",
+    "airwallex": "airwallex-agentos",
+    "atlassian-forge-skills": "forge-skills",
+    "azure-skills": "azure",
+    "convex-backend": "convex",
+    "qodo-skills": "qodo",
+    "sonarqube-agent-plugins": "sonarqube",
+    "vals": "valtown",
+    "wordpress.com": "build-with-wordpress"
+  },
+  "upstream_repository": "anthropics/claude-plugins-official",
+  "upstream_revision": "f1b3950fec47935fce65c1064f5283d318010adb"
+}
