@@ -7,10 +7,15 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
+  issues: write
+
+concurrency:
+  group: sync-marketplace
+  cancel-in-progress: false
 
 jobs:
   sync:
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -31,9 +36,7 @@ jobs:
           python -m unittest discover -s tests -v
           python scripts/validate_marketplace.py --copilot-if-available
 
-      - name: Open update pull request
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Publish marketplace update
         run: |
           if git diff --quiet -- .github/plugin/marketplace.json .github/plugin/upstream.json; then
             echo "Marketplace is already current."
@@ -42,28 +45,42 @@ jobs:
 
           revision="$(python -c 'import json; print(json.load(open(".github/plugin/upstream.json"))["upstream_revision"])')"
           short_revision="${revision:0:12}"
-          branch="automation/sync-marketplace"
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git fetch origin "$branch:refs/remotes/origin/$branch" || true
-          git switch -C "$branch"
           git add .github/plugin/marketplace.json .github/plugin/upstream.json
           git commit -m "Sync Anthropic marketplace at ${short_revision}"
-          git push --force-with-lease origin "$branch"
+          git push origin HEAD:main
 
-          body="Updates the generated Copilot marketplace from \`anthropics/claude-plugins-official@${revision}\`.
+  notify-failure:
+    needs: sync
+    if: ${{ failure() }}
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Open or update failure alert
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Marketplace sync failed"
+          run_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          issue_number="$(gh issue list \
+            --repo "$GITHUB_REPOSITORY" \
+            --state open \
+            --search "\"$title\" in:title" \
+            --json number,title \
+            --jq ".[] | select(.title == \"$title\") | .number" \
+            | head -1)"
 
-          Generated and validated by \`.github/workflows/sync-marketplace.yml\`."
-          existing="$(gh pr list --head "$branch" --state open --json number --jq '.[0].number // empty')"
-          if [ -n "$existing" ]; then
-            gh pr edit "$existing" \
-              --title "Sync Anthropic marketplace at ${short_revision}" \
-              --body "$body"
+          if [ -n "$issue_number" ]; then
+            gh issue comment "$issue_number" \
+              --repo "$GITHUB_REPOSITORY" \
+              --body "Another marketplace sync failed: ${run_url}"
           else
-            gh pr create \
-              --base "${{ github.event.repository.default_branch }}" \
-              --head "$branch" \
-              --title "Sync Anthropic marketplace at ${short_revision}" \
-              --body "$body"
+            gh issue create \
+              --repo "$GITHUB_REPOSITORY" \
+              --assignee "$GITHUB_REPOSITORY_OWNER" \
+              --title "$title" \
+              --body "The automatic marketplace sync failed. Review the workflow run: ${run_url}"
           fi

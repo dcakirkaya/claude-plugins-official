@@ -97,7 +97,9 @@ There is no separate marketplace validation subcommand in Copilot CLI `1.0.86-0`
 
 ## Automated updates
 
-`.github/workflows/sync-marketplace.yml` runs daily and on demand. It regenerates, tests, and validates the marketplace, then opens or updates a pull request only when the generated files changed. The upstream commit is included in the commit and pull request description.
+`.github/workflows/sync-marketplace.yml` runs daily and on demand. It regenerates, tests, and validates the marketplace, then commits changed generated files directly to `main`. Successful runs with no changes do nothing.
+
+If generation, validation, testing, or publishing fails, the workflow opens a single assigned GitHub issue named **Marketplace sync failed**. Repeated failures add comments to that issue instead of creating alert noise on successful runs.
 
 ## Limitations and final acceptance
 
