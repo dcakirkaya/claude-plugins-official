@@ -132,6 +132,79 @@
       font-size: 15px;
     }
 
+    .setup-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .setup-panel {
+      display: grid;
+      align-content: center;
+      gap: 18px;
+      padding: clamp(24px, 3vw, 38px);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(255,255,255,.085), rgba(255,255,255,.035));
+    }
+
+    .setup-step {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .setup-step > span {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      color: #d8c5ff;
+      background: rgba(163,113,247,.18);
+      font-weight: 800;
+    }
+
+    .setup-step strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 18px;
+    }
+
+    .setup-step small {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .setup-label {
+      color: var(--cyan);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .setup-url {
+      padding: 22px;
+      overflow-wrap: anywhere;
+      border: 1px solid rgba(57,208,216,.3);
+      border-radius: 16px;
+      color: #fff;
+      background: #0d1117;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: clamp(18px, 2vw, 28px);
+      line-height: 1.45;
+      user-select: all;
+    }
+
+    .setup-hint {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
     .grid-2, .grid-3 {
       display: grid;
       gap: 18px;
@@ -511,7 +584,7 @@
 
     @media (max-width: 900px) {
       .grid-3, .metric-row { grid-template-columns: 1fr; }
-      .grid-2, .demo-shell, .payoff { grid-template-columns: 1fr; }
+      .grid-2, .demo-shell, .payoff, .setup-grid { grid-template-columns: 1fr; }
       .architecture { grid-template-columns: 1fr; }
       .arrow { transform: rotate(90deg); min-height: 35px; }
       .flow-list { grid-template-columns: 1fr; }
@@ -577,6 +650,17 @@
           <h3>GitHub Copilot</h3>
           <p>One repository marketplace for the App and CLI</p>
         </div>
+      </div>
+    </section>
+
+    <section class="slide" data-note="Open Customize, Plugins, and Add marketplace. Paste the repository URL, then choose and install a plugin.">
+      <div class="eyebrow">How to use it</div>
+      <h2><span class="gradient">Copy. Paste. Install.</span></h2>
+      <div class="setup-panel">
+        <div class="setup-step"><span>1</span><div><strong>Open Copilot</strong><small>Customize → Plugins → Add marketplace</small></div></div>
+        <div class="setup-step"><span>2</span><div><strong>Paste this URL</strong></div></div>
+        <div class="setup-url">https://github.com/<wbr>dcakirkaya/<wbr>claude-plugins-official</div>
+        <div class="setup-step"><span>3</span><div><strong>Choose a plugin and click Install</strong></div></div>
       </div>
     </section>
 
@@ -672,7 +756,8 @@
       [...dots.children].forEach((dot, i) => dot.classList.toggle("active", i === index));
       notes.textContent = slides[index].dataset.note || "";
       notes.classList.toggle("visible", notesVisible);
-      if (index !== 4) document.getElementById("demoVideo").pause();
+      const demoVideo = document.getElementById("demoVideo");
+      if (!slides[index].contains(demoVideo)) demoVideo.pause();
     }
 
     document.getElementById("prev").addEventListener("click", () => show(index - 1));
