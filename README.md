@@ -99,7 +99,7 @@ There is no separate marketplace validation subcommand in Copilot CLI `1.0.86-0`
 
 `.github/workflows/sync-marketplace.yml` runs daily and on demand. It regenerates, tests, and validates the marketplace, then commits changed generated files directly to `main`. Successful runs with no changes do nothing.
 
-If generation, validation, testing, or publishing fails, the workflow opens a single assigned GitHub issue named **Marketplace sync failed**. Repeated failures add comments to that issue instead of creating alert noise on successful runs.
+If generation, validation, testing, or publishing fails, the workflow stops without changing the marketplace and GitHub Actions reports a failed run. GitHub sends failed-workflow alerts according to the maintainer's Actions notification settings; successful runs create no pull request or issue.
 
 ## Limitations and final acceptance
 

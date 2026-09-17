@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: write
-  issues: write
 
 concurrency:
   group: sync-marketplace
@@ -51,36 +50,3 @@ jobs:
           git add .github/plugin/marketplace.json .github/plugin/upstream.json
           git commit -m "Sync Anthropic marketplace at ${short_revision}"
           git push origin HEAD:main
-
-  notify-failure:
-    needs: sync
-    if: ${{ failure() }}
-    runs-on: ubuntu-latest
-    permissions:
-      issues: write
-    steps:
-      - name: Open or update failure alert
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          title="Marketplace sync failed"
-          run_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
-          issue_number="$(gh issue list \
-            --repo "$GITHUB_REPOSITORY" \
-            --state open \
-            --search "\"$title\" in:title" \
-            --json number,title \
-            --jq ".[] | select(.title == \"$title\") | .number" \
-            | head -1)"
-
-          if [ -n "$issue_number" ]; then
-            gh issue comment "$issue_number" \
-              --repo "$GITHUB_REPOSITORY" \
-              --body "Another marketplace sync failed: ${run_url}"
-          else
-            gh issue create \
-              --repo "$GITHUB_REPOSITORY" \
-              --assignee "$GITHUB_REPOSITORY_OWNER" \
-              --title "$title" \
-              --body "The automatic marketplace sync failed. Review the workflow run: ${run_url}"
-          fi
