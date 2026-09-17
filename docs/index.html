@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude Plugins for GitHub Copilot — Demo</title>
+  <style>
+    :root {
+      --ink: #f5f7fb;
+      --muted: #a7afc0;
+      --panel: rgba(255,255,255,.07);
+      --line: rgba(255,255,255,.14);
+      --purple: #a371f7;
+      --blue: #58a6ff;
+      --cyan: #39d0d8;
+      --green: #3fb950;
+      --orange: #f2a65a;
+      --red: #ff7b72;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(163,113,247,.18), transparent 34%),
+        radial-gradient(circle at 85% 78%, rgba(57,208,216,.13), transparent 32%),
+        #080b12;
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    button { font: inherit; }
+
+    .deck {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      align-content: center;
+      gap: 28px;
+      padding: clamp(46px, 7vw, 104px);
+      opacity: 0;
+      transform: translateX(48px) scale(.985);
+      pointer-events: none;
+      transition: opacity .28s ease, transform .38s cubic-bezier(.2,.7,.2,1);
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .slide.previous { transform: translateX(-48px) scale(.985); }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--cyan);
+      font-size: clamp(13px, 1.25vw, 18px);
+      font-weight: 750;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 30px;
+      height: 2px;
+      background: currentColor;
+      border-radius: 999px;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    h1 {
+      max-width: 1100px;
+      font-size: clamp(54px, 7.6vw, 112px);
+      line-height: .94;
+      letter-spacing: -.055em;
+    }
+
+    h2 {
+      max-width: 1050px;
+      font-size: clamp(42px, 5.8vw, 82px);
+      line-height: 1;
+      letter-spacing: -.045em;
+    }
+
+    h3 {
+      font-size: clamp(20px, 2vw, 29px);
+      line-height: 1.12;
+    }
+
+    .gradient {
+      color: transparent;
+      background: linear-gradient(105deg, #fff 6%, var(--purple) 48%, var(--cyan) 92%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .lead {
+      max-width: 920px;
+      color: var(--muted);
+      font-size: clamp(21px, 2.25vw, 32px);
+      line-height: 1.4;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .tag {
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #d6dbea;
+      background: rgba(255,255,255,.045);
+      font-weight: 650;
+      font-size: 15px;
+    }
+
+    .grid-2, .grid-3 {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .card {
+      padding: clamp(22px, 2.5vw, 34px);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(255,255,255,.085), rgba(255,255,255,.035));
+      box-shadow: 0 22px 70px rgba(0,0,0,.18);
+    }
+
+    .card p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: clamp(16px, 1.4vw, 21px);
+      line-height: 1.45;
+    }
+
+    .number {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      margin-bottom: 19px;
+      border-radius: 13px;
+      background: rgba(163,113,247,.16);
+      color: #c7a7ff;
+      font-weight: 800;
+    }
+
+    .error-box, .code-box {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #0d1117;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      line-height: 1.55;
+      box-shadow: 0 24px 70px rgba(0,0,0,.28);
+    }
+
+    .error-box {
+      max-width: 1030px;
+      padding: 24px 28px;
+      color: #ffb5b0;
+      font-size: clamp(16px, 1.7vw, 24px);
+    }
+
+    .prompt { color: var(--muted); }
+    .bad { color: var(--red); }
+    .good { color: #7ee787; }
+    .accent { color: var(--cyan); }
+
+    .architecture {
+      display: grid;
+      grid-template-columns: 1fr 70px 1.2fr 70px 1fr;
+      align-items: stretch;
+      gap: 12px;
+    }
+
+    .arch-box {
+      min-height: 210px;
+      display: grid;
+      align-content: center;
+      gap: 13px;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--panel);
+      text-align: center;
+    }
+
+    .arch-icon {
+      font-size: 42px;
+      line-height: 1;
+    }
+
+    .arch-box p {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .arrow {
+      display: grid;
+      place-items: center;
+      color: var(--purple);
+      font-size: 40px;
+      font-weight: 900;
+    }
+
+    .translate {
+      position: relative;
+      overflow: hidden;
+      border-color: rgba(163,113,247,.45);
+      background: linear-gradient(145deg, rgba(163,113,247,.16), rgba(57,208,216,.07));
+    }
+
+    .translate::after {
+      content: "";
+      position: absolute;
+      inset: auto -15% -55% 35%;
+      height: 160px;
+      border-radius: 50%;
+      background: rgba(57,208,216,.11);
+      filter: blur(24px);
+    }
+
+    .flow-list {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 11px;
+    }
+
+    .flow-step {
+      position: relative;
+      min-height: 168px;
+      display: grid;
+      align-content: center;
+      gap: 10px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.05);
+    }
+
+    .flow-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -19px;
+      top: 50%;
+      z-index: 2;
+      transform: translateY(-50%);
+      color: var(--purple);
+      font-size: 26px;
+      font-weight: 850;
+    }
+
+    .flow-step strong { font-size: 18px; }
+    .flow-step span { color: var(--muted); font-size: 14px; line-height: 1.4; }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      max-width: 940px;
+    }
+
+    .metric {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 19px;
+      background: var(--panel);
+    }
+
+    .metric b {
+      display: block;
+      color: var(--cyan);
+      font-size: clamp(36px, 4.4vw, 66px);
+      line-height: 1;
+      letter-spacing: -.045em;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .demo-shell {
+      display: grid;
+      grid-template-columns: .82fr 1.18fr;
+      gap: 20px;
+    }
+
+    .demo-steps {
+      display: grid;
+      gap: 12px;
+      counter-reset: demo;
+    }
+
+    .demo-step {
+      counter-increment: demo;
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.045);
+    }
+
+    .demo-step::before {
+      content: counter(demo);
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      color: #d8c5ff;
+      background: rgba(163,113,247,.18);
+      font-weight: 800;
+    }
+
+    .demo-step p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.42;
+    }
+
+    .demo-step strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-size: 17px;
+    }
+
+    .code-box {
+      display: grid;
+      align-content: center;
+      gap: 18px;
+      padding: 28px;
+      font-size: clamp(15px, 1.45vw, 20px);
+    }
+
+    .code-line {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 14px;
+    }
+
+    .code-line span:first-child { color: #596273; user-select: none; }
+
+    .video-card {
+      position: relative;
+      display: grid;
+      align-content: center;
+      gap: 12px;
+      padding: 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #05070b;
+      box-shadow: 0 24px 70px rgba(0,0,0,.35);
+    }
+
+    .demo-video {
+      display: block;
+      width: 100%;
+      max-height: 58vh;
+      border-radius: 13px;
+      background: #000;
+    }
+
+    .video-caption {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 2px 6px 4px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .video-caption strong { color: var(--ink); }
+
+    .payoff {
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .quote {
+      display: grid;
+      align-content: center;
+      padding: 38px;
+      border: 1px solid rgba(163,113,247,.36);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(163,113,247,.14), rgba(57,208,216,.06));
+      font-size: clamp(28px, 3.5vw, 51px);
+      font-weight: 760;
+      line-height: 1.13;
+      letter-spacing: -.035em;
+    }
+
+    .benefits {
+      display: grid;
+      gap: 12px;
+    }
+
+    .benefit {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: rgba(255,255,255,.045);
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .benefit::before {
+      content: "✓";
+      margin-right: 11px;
+      color: var(--green);
+    }
+
+    .footer {
+      position: fixed;
+      left: 28px;
+      right: 28px;
+      bottom: 20px;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #798296;
+      font-size: 12px;
+      letter-spacing: .03em;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .controls button {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      color: var(--ink);
+      background: rgba(255,255,255,.06);
+      cursor: pointer;
+    }
+
+    .controls button:hover { background: rgba(255,255,255,.12); }
+
+    .dots { display: flex; gap: 7px; }
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 99px;
+      background: #444c5c;
+      transition: width .2s, background .2s;
+    }
+    .dot.active { width: 25px; background: var(--purple); }
+
+    .notes {
+      position: fixed;
+      left: 50%;
+      bottom: 64px;
+      z-index: 25;
+      width: min(760px, calc(100% - 40px));
+      padding: 18px 22px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      color: #dce1ec;
+      background: rgba(10,13,20,.95);
+      box-shadow: 0 24px 80px rgba(0,0,0,.55);
+      transform: translate(-50%, 20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: .2s ease;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .notes.visible {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 900px) {
+      .grid-3, .metric-row { grid-template-columns: 1fr; }
+      .grid-2, .demo-shell, .payoff { grid-template-columns: 1fr; }
+      .architecture { grid-template-columns: 1fr; }
+      .arrow { transform: rotate(90deg); min-height: 35px; }
+      .flow-list { grid-template-columns: 1fr; }
+      .flow-step { min-height: auto; }
+      .flow-step:not(:last-child)::after {
+        content: "↓";
+        right: 50%;
+        top: auto;
+        bottom: -23px;
+        transform: translateX(50%);
+      }
+      .slide { overflow-y: auto; padding-bottom: 90px; }
+      .footer { left: 14px; right: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck">
+    <section class="slide active" data-note="Open with the outcome: one repository makes Anthropic's public plugin catalog usable from GitHub Copilot, without copying hundreds of plugins.">
+      <div class="eyebrow">Hackathon demo · September 2026</div>
+      <h1>Claude plugins for GitHub Copilot</span></h1>
+      <p class="lead">A small compatibility bridge that translates marketplace metadata</p>
+      <div class="tag-row">
+        <span class="tag">300+ plugins</span>
+        <span class="tag">Zero plugin forks</span>
+        <span class="tag">Automated sync</span>
+        <span class="tag">Copilot App + CLI</span>
+      </div>
+    </section>
+
+    <section class="slide" data-note="Show the failure briefly. Copilot can find Anthropic's marketplace file, but rejects Claude-specific source definitions such as git-subdir.">
+      <div class="eyebrow">The problem</div>
+      <h2>A useful ecosystem.<br><span class="bad">One incompatible schema.</span></h2>
+      <div class="error-box">
+        <span class="prompt">$</span> copilot plugin marketplace add anthropics/claude-plugins-official<br><br>
+        <span class="bad">Invalid marketplace.json: plugins.0.source: Invalid input ...</span>
+      </div>
+      <div class="grid-3">
+        <div class="card"><div class="number">1</div><h3>Claude metadata</h3><p>Anthropic uses source types such as <code>git-subdir</code>.</p></div>
+        <div class="card"><div class="number">2</div><h3>Copilot rejects it</h3><p>One unsupported source can invalidate the full catalog.</p></div>
+        <div class="card"><div class="number">3</div><h3>Forking is costly</h3><p>Copying hundreds of plugins creates permanent maintenance work.</p></div>
+      </div>
+    </section>
+
+    <section class="slide" data-note="The core idea is intentionally narrow: fetch upstream, translate only source metadata, validate, and publish a Copilot-native marketplace. Plugin code stays where its authors maintain it.">
+      <div class="eyebrow">The solution</div>
+      <h2>A compatibility layer</h2>
+      <div class="architecture">
+        <div class="arch-box">
+          <div class="arch-icon">⬡</div>
+          <h3>Anthropic marketplace</h3>
+          <p>Original catalog and upstream plugin repositories</p>
+        </div>
+        <div class="arrow">→</div>
+        <div class="arch-box translate">
+          <div class="arch-icon">⇄</div>
+          <h3>Fetch · Translate · Validate</h3>
+          <p><code>git-subdir</code> becomes a Copilot <code>github</code> source with <code>repo</code> + <code>path</code></p>
+        </div>
+        <div class="arrow">→</div>
+        <div class="arch-box">
+          <div class="arch-icon">✦</div>
+          <h3>GitHub Copilot</h3>
+          <p>One repository marketplace for the App and CLI</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-note="Because this is a generated catalog with one maintainer, successful validated changes publish automatically. The workflow stops and opens an alert issue only when something fails.">
+      <div class="eyebrow">Keeping it up to date</div>
+      <h2>Automatic checks.<br><span class="good">Automatic publishing.</span></h2>
+      <div class="flow-list">
+        <div class="flow-step"><strong>Check daily</strong><span>See whether Anthropic added or changed any plugins.</span></div>
+        <div class="flow-step"><strong>Rebuild</strong><span>Translate the latest catalog into Copilot's format.</span></div>
+        <div class="flow-step"><strong>Verify</strong><span>Stop if the generated marketplace is unsafe or invalid.</span></div>
+        <div class="flow-step"><strong>Publish</strong><span>Push valid changes directly to the shared marketplace.</span></div>
+      </div>
+      <p class="lead"><strong style="color:#fff">No review queue:</strong> successful updates are silent; failures stop and alert the maintainer.</p>
+      <div class="metric-row">
+        <div class="metric"><b>Daily</b><span>check for upstream changes</span></div>
+        <div class="metric"><b>Auto</b><span>publish valid generated changes</span></div>
+        <div class="metric"><b>Alert</b><span>only when the workflow fails</span></div>
+      </div>
+    </section>
+
+    <section class="slide" data-note="Play the embedded recording. It demonstrates adding the repository marketplace, browsing the catalog, installing a plugin, and confirming that Copilot loads it.">
+      <div class="eyebrow">Product demo · recorded</div>
+      <h2>From repository URL<br><span class="gradient">to working plugin.</span></h2>
+      <div class="demo-shell">
+        <div class="demo-steps">
+          <div class="demo-step"><p><strong>Add marketplace</strong>Customize → Plugins → Add marketplace</p></div>
+          <div class="demo-step"><p><strong>Paste repository</strong><code>dcakirkaya/claude-plugins-official</code></p></div>
+          <div class="demo-step"><p><strong>Browse and install</strong>Choose a plugin with visible skills or agents.</p></div>
+          <div class="demo-step"><p><strong>Prove it loads</strong>Start a new session and invoke the installed capability.</p></div>
+        </div>
+        <div class="video-card">
+          <video class="demo-video" id="demoVideo" controls playsinline preload="metadata">
+            <source src="Demo_ClaudePluginsGHC.mp4" type="video/mp4">
+            Your browser does not support embedded MP4 video.
+          </video>
+          <div class="video-caption">
+            <strong>GitHub Copilot marketplace demo</strong>
+            <span>Use the player controls or press fullscreen</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-note="Close on leverage: the bridge is small, deterministic, and reusable by a team. The outcome is access to upstream innovation without maintaining a parallel fork.">
+      <div class="eyebrow">The payoff</div>
+      <h2>More capability.<br><span class="gradient">Almost no maintenance burden.</span></h2>
+      <div class="payoff">
+        <div class="quote">“Keep plugin ownership upstream. Maintain only the translation boundary.”</div>
+        <div class="benefits">
+          <div class="benefit">No Claude access required</div>
+          <div class="benefit">No copied plugin repositories</div>
+          <div class="benefit">Deterministic provenance</div>
+          <div class="benefit">Safe failure on schema drift</div>
+          <div class="benefit">One URL for the whole team</div>
+        </div>
+      </div>
+      <p class="lead"><strong style="color:#fff">Repository:</strong> github.com/dcakirkaya/claude-plugins-official</p>
+    </section>
+  </main>
+
+  <aside class="notes" id="notes"></aside>
+
+  <footer class="footer">
+    <div>Claude Plugins for GitHub Copilot · Use ← → · Press N for speaker notes</div>
+    <div class="controls">
+      <div class="dots" id="dots"></div>
+      <button id="prev" aria-label="Previous slide">←</button>
+      <button id="next" aria-label="Next slide">→</button>
+      <button id="full" aria-label="Fullscreen">⛶</button>
+    </div>
+  </footer>
+
+  <script>
+    const slides = [...document.querySelectorAll(".slide")];
+    const dots = document.getElementById("dots");
+    const notes = document.getElementById("notes");
+    let index = 0;
+    let notesVisible = false;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement("span");
+      dot.className = "dot";
+      dot.addEventListener("click", () => show(i));
+      dots.appendChild(dot);
+    });
+
+    function show(next) {
+      index = Math.max(0, Math.min(slides.length - 1, next));
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === index);
+        slide.classList.toggle("previous", i < index);
+      });
+      [...dots.children].forEach((dot, i) => dot.classList.toggle("active", i === index));
+      notes.textContent = slides[index].dataset.note || "";
+      notes.classList.toggle("visible", notesVisible);
+      if (index !== 4) document.getElementById("demoVideo").pause();
+    }
+
+    document.getElementById("prev").addEventListener("click", () => show(index - 1));
+    document.getElementById("next").addEventListener("click", () => show(index + 1));
+    document.getElementById("full").addEventListener("click", () => {
+      document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (["ArrowRight", "PageDown", " "].includes(event.key)) show(index + 1);
+      if (["ArrowLeft", "PageUp"].includes(event.key)) show(index - 1);
+      if (event.key.toLowerCase() === "n") {
+        notesVisible = !notesVisible;
+        notes.classList.toggle("visible", notesVisible);
+      }
+      if (event.key.toLowerCase() === "f") {
+        document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+      }
+    });
+
+    show(0);
+  </script>
+</body>
+</html>

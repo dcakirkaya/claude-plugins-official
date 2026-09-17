@@ -2,6 +2,8 @@
 
 This repository makes Anthropic's public Claude plugin marketplace consumable by GitHub Copilot without copying or maintaining the plugin implementations.
 
+**Demo presentation:** https://dcakirkaya.github.io/claude-plugins-official/
+
 ```text
 Anthropic Marketplace
         ↓
