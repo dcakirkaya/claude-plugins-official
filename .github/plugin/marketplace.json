@@ -65,7 +65,7 @@
       "source": {
         "path": "plugins/agent-sdk-dev",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -305,7 +305,7 @@
       "source": {
         "path": "external_plugins/asana",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -902,7 +902,7 @@
       "source": {
         "path": "plugins/clangd-lsp",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       },
       "strict": false,
@@ -920,7 +920,7 @@
       "source": {
         "path": "plugins/claude-code-setup",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -936,7 +936,7 @@
       "source": {
         "path": "plugins/claude-md-management",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -952,7 +952,7 @@
       "source": {
         "path": "plugins/claude-security",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -1089,7 +1089,7 @@
       "source": {
         "path": "plugins/code-modernization",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -1105,7 +1105,7 @@
       "source": {
         "path": "plugins/code-review",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -1121,7 +1121,7 @@
       "source": {
         "path": "plugins/code-simplifier",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -1162,7 +1162,7 @@
       "source": {
         "path": "plugins/commit-commands",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -1191,7 +1191,7 @@
       "source": {
         "path": "external_plugins/context7",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       },
       "tags": [
@@ -1291,7 +1291,7 @@
       "source": {
         "path": "plugins/csharp-lsp",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       },
       "strict": false,
@@ -1309,7 +1309,7 @@
       "source": {
         "path": "plugins/cwc-makers",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       },
       "version": "1.0.0"
@@ -1512,7 +1512,7 @@
       "source": {
         "path": "external_plugins/discord",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -1614,7 +1614,7 @@
       "source": {
         "path": "plugins/explanatory-output-style",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -1638,7 +1638,7 @@
       "source": {
         "path": "external_plugins/fakechat",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -1664,7 +1664,7 @@
       "source": {
         "path": "plugins/feature-dev",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -1697,7 +1697,7 @@
       "source": {
         "path": "external_plugins/firebase",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -1752,7 +1752,7 @@
       "source": {
         "path": "plugins/frontend-design",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -1792,7 +1792,7 @@
       "source": {
         "path": "external_plugins/github",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -1818,7 +1818,7 @@
       "source": {
         "path": "external_plugins/gitlab",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -1855,7 +1855,7 @@
       "source": {
         "path": "plugins/gopls-lsp",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       },
       "strict": false,
@@ -1968,7 +1968,7 @@
       "source": {
         "path": "plugins/hookify",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -2065,7 +2065,23 @@
       "source": {
         "path": "external_plugins/imessage",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
+        "source": "github"
+      }
+    },
+    {
+      "author": {
+        "name": "incident.io"
+      },
+      "category": "monitoring",
+      "description": "Work with incident.io from Claude: respond to and investigate incidents, check on-call schedules and escalations, and author the runbooks, skills and architecture docs that incident.io investigations draw on. Bundles the official incident.io MCP server (OAuth on first use).",
+      "homepage": "https://incident.io",
+      "name": "incident-io",
+      "source": {
+        "path": "plugins/incident-io",
+        "ref": "main",
+        "repo": "incident-io/skills",
+        "sha": "6d0bbfc9e52256fc39326b9ba6d08f16831b60ae",
         "source": "github"
       }
     },
@@ -2130,7 +2146,7 @@
       "source": {
         "path": "plugins/jdtls-lsp",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       },
       "strict": false,
@@ -2189,7 +2205,7 @@
       "source": {
         "path": "plugins/kotlin-lsp",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       },
       "strict": false,
@@ -2231,7 +2247,7 @@
       "source": {
         "path": "external_plugins/laravel-boost",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -2281,7 +2297,7 @@
       "source": {
         "path": "plugins/learning-output-style",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -2306,7 +2322,7 @@
       "source": {
         "path": "external_plugins/linear",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -2421,7 +2437,7 @@
       "source": {
         "path": "plugins/lua-lsp",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       },
       "strict": false,
@@ -2481,7 +2497,7 @@
       "source": {
         "path": "plugins/math-olympiad",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -2527,7 +2543,7 @@
       "source": {
         "path": "plugins/mcp-server-dev",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -2543,7 +2559,7 @@
       "source": {
         "path": "plugins/mcp-tunnels",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -3026,7 +3042,7 @@
       "source": {
         "path": "plugins/php-lsp",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       },
       "strict": false,
@@ -3094,7 +3110,7 @@
       "source": {
         "path": "plugins/playground",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -3106,7 +3122,7 @@
       "source": {
         "path": "external_plugins/playwright",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -3122,7 +3138,7 @@
       "source": {
         "path": "plugins/plugin-dev",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -3170,7 +3186,7 @@
       "source": {
         "path": "plugins/pr-review-toolkit",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -3212,7 +3228,7 @@
       "source": {
         "path": "plugins/project-artifact",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -3252,7 +3268,7 @@
       "source": {
         "path": "plugins/pyright-lsp",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       },
       "strict": false,
@@ -3278,7 +3294,7 @@
         "name": "Qodo"
       },
       "category": "development",
-      "description": "Qodo setup, code intelligence, and review workflows.",
+      "description": "Bring Qodo's codebase intelligence, coding standards, and code review into your coding agent.",
       "homepage": "https://github.com/qodo-ai/qodo-skills.git",
       "name": "qodo",
       "source": {
@@ -3359,7 +3375,7 @@
       "source": {
         "path": "plugins/ralph-loop",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -3387,7 +3403,7 @@
       "source": {
         "path": "plugins/receipts",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -3508,7 +3524,7 @@
       "source": {
         "path": "plugins/ruby-lsp",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       },
       "strict": false,
@@ -3547,7 +3563,7 @@
       "source": {
         "path": "plugins/rust-analyzer-lsp",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       },
       "strict": false,
@@ -3704,7 +3720,7 @@
       "source": {
         "path": "plugins/security-guidance",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       },
       "version": "2.0.7"
@@ -3756,7 +3772,7 @@
       "source": {
         "path": "external_plugins/serena",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       },
       "tags": [
@@ -3791,7 +3807,7 @@
       "source": {
         "path": "plugins/session-report",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -3869,7 +3885,7 @@
       "source": {
         "path": "plugins/skill-creator",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -4086,7 +4102,7 @@
       "source": {
         "path": "plugins/swift-lsp",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       },
       "strict": false,
@@ -4143,7 +4159,7 @@
       "source": {
         "path": "external_plugins/telegram",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -4159,7 +4175,7 @@
       "source": {
         "path": "external_plugins/terraform",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       }
     },
@@ -4220,7 +4236,7 @@
       "source": {
         "path": "plugins/typescript-lsp",
         "repo": "anthropics/claude-plugins-official",
-        "sha": "1aa8f02ec8327f513686934f458a620f83db91ed",
+        "sha": "c447c3207a425bc4e2a0d068435f64b0477ae981",
         "source": "github"
       },
       "strict": false,
@@ -4419,6 +4435,20 @@
         "sha": "d7ba1cb036c7ca765536355fb85f13a3237ea3f9",
         "source": "url",
         "url": "https://github.com/windsor-ai/claude-windsor-ai-plugin.git"
+      }
+    },
+    {
+      "author": {
+        "name": "Wingspan"
+      },
+      "category": "productivity",
+      "description": "Ask Claude about the contractors you pay through Wingspan, what you owe them, and what is holding up a payment, then onboard contractors and log payments as drafts, with a preview before anything is written. Requires a Wingspan account; bundles the Wingspan MCP server (OAuth on first use).",
+      "homepage": "https://github.com/wingspanHQ/mcp-claude-plugin",
+      "name": "wingspan",
+      "source": {
+        "sha": "b989f3b303a1f605955291e34ed29b755bf436e1",
+        "source": "url",
+        "url": "https://github.com/wingspanHQ/mcp-claude-plugin.git"
       }
     },
     {
