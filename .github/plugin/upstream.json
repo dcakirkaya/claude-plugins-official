@@ -1,10 +1,10 @@
 {
-  "converted": 149,
+  "converted": 150,
   "errors": 0,
-  "output_plugin_count": 311,
+  "output_plugin_count": 314,
   "skipped": 0,
-  "source_plugin_count": 311,
-  "unchanged": 162,
+  "source_plugin_count": 314,
+  "unchanged": 164,
   "upstream_manifest": ".claude-plugin/marketplace.json",
   "upstream_marketplace_name": "claude-plugins-official",
   "upstream_renames": {
@@ -19,5 +19,5 @@
     "wordpress.com": "build-with-wordpress"
   },
   "upstream_repository": "anthropics/claude-plugins-official",
-  "upstream_revision": "6bfd4e0c6d3da6050984fa5ed8281d915fa7ed69"
+  "upstream_revision": "ad30d62cd52ad0d0af1beda1eab7f61c601045d0"
 }
