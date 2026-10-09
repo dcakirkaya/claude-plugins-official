@@ -19,5 +19,5 @@
     "wordpress.com": "build-with-wordpress"
   },
   "upstream_repository": "anthropics/claude-plugins-official",
-  "upstream_revision": "f713a7c59b729741282f9c2d9a04e28e2abbd20c"
+  "upstream_revision": "ac996c0dde7fb2a9f805cd5277ffc95ecd44a321"
 }
